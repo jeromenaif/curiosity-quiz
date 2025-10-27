@@ -2,185 +2,582 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Curiosity Assessment</title>
+  <title>Curiosity Assessment | Proximus</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
+    /* Proximus Brand Colors */
     :root {
-      --primary:#1f6feb; --text:#0b1020; --muted:#5b6470; --bg:#f6f8fa; --card:#ffffff; --border:#d0d7de; --ok:#1a7f37; --warn:#9a6700;
+      --primary: #9533DB;        /* Proximus Purple */
+      --primary-dark: #7B2AC2;   /* Darker purple for hover/active */
+      --secondary: #005AC7;      /* Proximus Blue */
+      --text: #0B1020;
+      --text-light: #5B6470;
+      --bg: #F6F8FA;
+      --bg-light: #F9FAFB;
+      --card: #FFFFFF;
+      --border: #D0D7DE;
+      --success: #1A7F37;
+      --warning: #9A6700;
+      --error: #DA3633;
     }
-    body { margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif; color:var(--text); background:var(--bg); }
-    .wrap { max-width:900px; margin:32px auto; padding:0 16px; }
-    .card { background:var(--card); border:1px solid var(--border); border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,.04); }
-    header { padding:24px 24px 0; }
-    header h1 { margin:0 0 8px; font-size:28px; }
-    header p { margin:0 0 16px; color:var(--muted); }
-    form { padding:16px 24px 24px; }
-    fieldset { border:1px solid var(--border); border-radius:10px; padding:16px; margin:16px 0; }
-    legend { padding:0 6px; font-weight:600; }
-    .q { display:flex; flex-direction:column; gap:10px; }
-    .scale { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
-    .scale label { display:flex; align-items:center; gap:6px; padding:6px 10px; border:1px solid var(--border); border-radius:8px; cursor:pointer; }
-    .scale input { accent-color:var(--primary); }
-    .hint { color:var(--muted); font-size:12px; }
-    .actions { display:flex; gap:12px; margin-top:20px; }
-    button { cursor:pointer; border:1px solid var(--primary); background:var(--primary); color:#fff; padding:10px 14px; border-radius:10px; font-weight:600; }
-    button.secondary { background:#fff; color:var(--primary); }
-    .result { display:none; padding:20px 24px; border-top:1px solid var(--border); background:#fafcff; border-radius:0 0 12px 12px; }
-    .score { font-size:22px; font-weight:700; }
-    .badge { display:inline-block; margin-top:6px; padding:6px 10px; border-radius:999px; border:1px solid var(--border); background:#fff; font-size:12px; color:var(--muted); }
-    .cat { margin-top:8px; font-size:18px; }
-    .cat.ok { color:var(--ok); }
-    .cat.warn { color:var(--warn); }
-    footer { margin-top:16px; color:var(--muted); font-size:12px; text-align:center; }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .wrap {
+        padding: 32px 16px;
+      }
+    }
+
+    /* Header with Proximus branding */
+    .header-brand {
+      display: flex;
+      align-items: center;
+      margin-bottom: 24px;
+      gap: 12px;
+    }
+
+    .proximus-logo {
+      width: 32px;
+      height: 32px;
+      background: var(--primary);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: white;
+      font-size: 18px;
+    }
+
+    .brand-text {
+      font-size: 12px;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    header {
+      padding: 24px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+    }
+
+    @media (min-width: 768px) {
+      header {
+        padding: 32px;
+      }
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    @media (min-width: 768px) {
+      header h1 {
+        font-size: 32px;
+      }
+    }
+
+    header p {
+      margin: 0;
+      font-size: 14px;
+      opacity: 0.95;
+      line-height: 1.5;
+    }
+
+    @media (min-width: 768px) {
+      header p {
+        font-size: 16px;
+      }
+    }
+
+    form {
+      padding: 24px;
+    }
+
+    @media (min-width: 768px) {
+      form {
+        padding: 32px;
+      }
+    }
+
+    fieldset {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin: 20px 0;
+      background: var(--bg-light);
+    }
+
+    @media (min-width: 768px) {
+      fieldset {
+        padding: 20px;
+        margin: 24px 0;
+      }
+    }
+
+    legend {
+      padding: 0 8px;
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--text);
+    }
+
+    @media (min-width: 768px) {
+      legend {
+        font-size: 16px;
+        padding: 0 12px;
+      }
+    }
+
+    .q {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .hint {
+      color: var(--text-light);
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    @media (min-width: 768px) {
+      .hint {
+        font-size: 14px;
+      }
+    }
+
+    .scale {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+      gap: 8px;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .scale {
+        gap: 12px;
+      }
+    }
+
+    .scale label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      background: var(--card);
+      font-weight: 500;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    @media (min-width: 768px) {
+      .scale label {
+        padding: 12px;
+        font-size: 15px;
+      }
+    }
+
+    .scale label:hover {
+      border-color: var(--primary);
+      background: rgba(149, 51, 219, 0.05);
+    }
+
+    .scale input {
+      accent-color: var(--primary);
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .scale input:checked + span,
+    .scale input:checked {
+      color: var(--primary);
+    }
+
+    .scale label:has(input:checked) {
+      border-color: var(--primary);
+      background: rgba(149, 51, 219, 0.1);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    @media (min-width: 480px) {
+      .actions {
+        flex-direction: row;
+        gap: 16px;
+      }
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: var(--primary);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+
+    @media (min-width: 480px) {
+      button {
+        width: auto;
+        padding: 12px 32px;
+        font-size: 16px;
+      }
+    }
+
+    button:hover {
+      background: var(--primary-dark);
+      box-shadow: 0 4px 12px rgba(149, 51, 219, 0.3);
+      transform: translateY(-2px);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button.secondary {
+      background: var(--bg);
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    button.secondary:hover {
+      background: rgba(149, 51, 219, 0.05);
+      box-shadow: 0 2px 8px rgba(149, 51, 219, 0.2);
+    }
+
+    .result {
+      display: none;
+      padding: 24px;
+      border-top: 2px solid var(--border);
+      background: linear-gradient(135deg, rgba(149, 51, 219, 0.05) 0%, rgba(0, 90, 199, 0.05) 100%);
+    }
+
+    @media (min-width: 768px) {
+      .result {
+        padding: 32px;
+      }
+    }
+
+    .result.show {
+      display: block;
+      animation: slideIn 0.4s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .score {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0;
+    }
+
+    @media (min-width: 768px) {
+      .score {
+        font-size: 32px;
+      }
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      background: var(--primary);
+      color: white;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    @media (min-width: 768px) {
+      .badge {
+        font-size: 13px;
+        padding: 8px 14px;
+      }
+    }
+
+    .cat {
+      margin-top: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    @media (min-width: 768px) {
+      .cat {
+        font-size: 18px;
+        margin-top: 16px;
+      }
+    }
+
+    .cat.ok {
+      color: var(--success);
+    }
+
+    .cat.warn {
+      color: var(--warning);
+    }
+
+    footer {
+      margin-top: 24px;
+      padding: 0 24px 24px;
+      color: var(--text-light);
+      font-size: 12px;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    @media (min-width: 768px) {
+      footer {
+        padding: 0 32px 32px;
+        font-size: 13px;
+      }
+    }
+
+    /* Accessibility improvements */
+    button:focus,
+    input:focus {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    /* Mobile optimization */
+    @media (max-width: 480px) {
+      .scale {
+        grid-template-columns: repeat(5, 1fr);
+      }
+
+      .scale label {
+        padding: 8px 4px;
+        font-size: 12px;
+        border-radius: 8px;
+      }
+
+      .scale input {
+        width: 16px;
+        height: 16px;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
+    <!-- Proximus Branding -->
+    
+
     <div class="card">
       <header>
         <h1>Curiosity Assessment</h1>
-        <p>Rate each statement from 1 to 5. You’ll instantly see your total score and category.</p>
+        <p>Discover your curiosity level. Rate each statement from 1 to 5, and instantly see your personalized score.</p>
       </header>
 
       <form id="quiz" novalidate>
-        <!-- Edit the question text inside each legend as you wish -->
-        <!-- 1 -->
+        <!-- Question 1 -->
         <fieldset>
           <legend>1) I actively seek out new ideas and perspectives.</legend>
           <div class="q">
             <div class="hint">1 = Strongly disagree, 5 = Strongly agree</div>
             <div class="scale" role="radiogroup" aria-label="Question 1 scale">
-              <label><input type="radio" name="q1" value="1" required>1</label>
-              <label><input type="radio" name="q1" value="2">2</label>
-              <label><input type="radio" name="q1" value="3">3</label>
-              <label><input type="radio" name="q1" value="4">4</label>
-              <label><input type="radio" name="q1" value="5">5</label>
+              <label><input type="radio" name="q1" value="1" required><span>1</span></label>
+              <label><input type="radio" name="q1" value="2"><span>2</span></label>
+              <label><input type="radio" name="q1" value="3"><span>3</span></label>
+              <label><input type="radio" name="q1" value="4"><span>4</span></label>
+              <label><input type="radio" name="q1" value="5"><span>5</span></label>
             </div>
           </div>
         </fieldset>
-        <!-- 2 -->
+
+        <!-- Question 2 -->
         <fieldset>
           <legend>2) I enjoy exploring unfamiliar topics.</legend>
           <div class="q">
             <div class="hint">1 = Strongly disagree, 5 = Strongly agree</div>
             <div class="scale" role="radiogroup" aria-label="Question 2 scale">
-              <label><input type="radio" name="q2" value="1" required>1</label>
-              <label><input type="radio" name="q2" value="2">2</label>
-              <label><input type="radio" name="q2" value="3">3</label>
-              <label><input type="radio" name="q2" value="4">4</label>
-              <label><input type="radio" name="q2" value="5">5</label>
+              <label><input type="radio" name="q2" value="1" required><span>1</span></label>
+              <label><input type="radio" name="q2" value="2"><span>2</span></label>
+              <label><input type="radio" name="q2" value="3"><span>3</span></label>
+              <label><input type="radio" name="q2" value="4"><span>4</span></label>
+              <label><input type="radio" name="q2" value="5"><span>5</span></label>
             </div>
           </div>
         </fieldset>
-        <!-- 3 -->
+
+        <!-- Question 3 -->
         <fieldset>
           <legend>3) I ask questions to understand how things work.</legend>
           <div class="q">
             <div class="hint">1 = Strongly disagree, 5 = Strongly agree</div>
             <div class="scale" role="radiogroup" aria-label="Question 3 scale">
-              <label><input type="radio" name="q3" value="1" required>1</label>
-              <label><input type="radio" name="q3" value="2">2</label>
-              <label><input type="radio" name="q3" value="3">3</label>
-              <label><input type="radio" name="q3" value="4">4</label>
-              <label><input type="radio" name="q3" value="5">5</label>
+              <label><input type="radio" name="q3" value="1" required><span>1</span></label>
+              <label><input type="radio" name="q3" value="2"><span>2</span></label>
+              <label><input type="radio" name="q3" value="3"><span>3</span></label>
+              <label><input type="radio" name="q3" value="4"><span>4</span></label>
+              <label><input type="radio" name="q3" value="5"><span>5</span></label>
             </div>
           </div>
         </fieldset>
-        <!-- 4 -->
+
+        <!-- Question 4 -->
         <fieldset>
-          <legend>4) I’m comfortable stepping outside my routines.</legend>
+          <legend>4) I'm comfortable stepping outside my routines.</legend>
           <div class="q">
             <div class="hint">1 = Strongly disagree, 5 = Strongly agree</div>
             <div class="scale" role="radiogroup" aria-label="Question 4 scale">
-              <label><input type="radio" name="q4" value="1" required>1</label>
-              <label><input type="radio" name="q4" value="2">2</label>
-              <label><input type="radio" name="q4" value="3">3</label>
-              <label><input type="radio" name="q4" value="4">4</label>
-              <label><input type="radio" name="q4" value="5">5</label>
+              <label><input type="radio" name="q4" value="1" required><span>1</span></label>
+              <label><input type="radio" name="q4" value="2"><span>2</span></label>
+              <label><input type="radio" name="q4" value="3"><span>3</span></label>
+              <label><input type="radio" name="q4" value="4"><span>4</span></label>
+              <label><input type="radio" name="q4" value="5"><span>5</span></label>
             </div>
           </div>
         </fieldset>
-        <!-- 5 -->
+
+        <!-- Question 5 -->
         <fieldset>
           <legend>5) I look for learning in everyday situations.</legend>
           <div class="q">
             <div class="hint">1 = Strongly disagree, 5 = Strongly agree</div>
             <div class="scale" role="radiogroup" aria-label="Question 5 scale">
-              <label><input type="radio" name="q5" value="1" required>1</label>
-              <label><input type="radio" name="q5" value="2">2</label>
-              <label><input type="radio" name="q5" value="3">3</label>
-              <label><input type="radio" name="q5" value="4">4</label>
-              <label><input type="radio" name="q5" value="5">5</label>
+              <label><input type="radio" name="q5" value="1" required><span>1</span></label>
+              <label><input type="radio" name="q5" value="2"><span>2</span></label>
+              <label><input type="radio" name="q5" value="3"><span>3</span></label>
+              <label><input type="radio" name="q5" value="4"><span>4</span></label>
+              <label><input type="radio" name="q5" value="5"><span>5</span></label>
             </div>
           </div>
         </fieldset>
-        <!-- 6 -->
+
+        <!-- Question 6 -->
         <fieldset>
           <legend>6) I enjoy experimenting to discover what happens.</legend>
           <div class="q">
             <div class="hint">1 = Strongly disagree, 5 = Strongly agree</div>
             <div class="scale" role="radiogroup" aria-label="Question 6 scale">
-              <label><input type="radio" name="q6" value="1" required>1</label>
-              <label><input type="radio" name="q6" value="2">2</label>
-              <label><input type="radio" name="q6" value="3">3</label>
-              <label><input type="radio" name="q6" value="4">4</label>
-              <label><input type="radio" name="q6" value="5">5</label>
+              <label><input type="radio" name="q6" value="1" required><span>1</span></label>
+              <label><input type="radio" name="q6" value="2"><span>2</span></label>
+              <label><input type="radio" name="q6" value="3"><span>3</span></label>
+              <label><input type="radio" name="q6" value="4"><span>4</span></label>
+              <label><input type="radio" name="q6" value="5"><span>5</span></label>
             </div>
           </div>
         </fieldset>
-        <!-- 7 -->
+
+        <!-- Question 7 -->
         <fieldset>
-          <legend>7) I’m open to changing my mind when I learn new facts.</legend>
+          <legend>7) I'm open to changing my mind when I learn new facts.</legend>
           <div class="q">
             <div class="hint">1 = Strongly disagree, 5 = Strongly agree</div>
             <div class="scale" role="radiogroup" aria-label="Question 7 scale">
-              <label><input type="radio" name="q7" value="1" required>1</label>
-              <label><input type="radio" name="q7" value="2">2</label>
-              <label><input type="radio" name="q7" value="3">3</label>
-              <label><input type="radio" name="q7" value="4">4</label>
-              <label><input type="radio" name="q7" value="5">5</label>
+              <label><input type="radio" name="q7" value="1" required><span>1</span></label>
+              <label><input type="radio" name="q7" value="2"><span>2</span></label>
+              <label><input type="radio" name="q7" value="3"><span>3</span></label>
+              <label><input type="radio" name="q7" value="4"><span>4</span></label>
+              <label><input type="radio" name="q7" value="5"><span>5</span></label>
             </div>
           </div>
         </fieldset>
-        <!-- 8 -->
+
+        <!-- Question 8 -->
         <fieldset>
           <legend>8) I read or watch content beyond my usual interests.</legend>
           <div class="q">
             <div class="hint">1 = Strongly disagree, 5 = Strongly agree</div>
             <div class="scale" role="radiogroup" aria-label="Question 8 scale">
-              <label><input type="radio" name="q8" value="1" required>1</label>
-              <label><input type="radio" name="q8" value="2">2</label>
-              <label><input type="radio" name="q8" value="3">3</label>
-              <label><input type="radio" name="q8" value="4">4</label>
-              <label><input type="radio" name="q8" value="5">5</label>
+              <label><input type="radio" name="q8" value="1" required><span>1</span></label>
+              <label><input type="radio" name="q8" value="2"><span>2</span></label>
+              <label><input type="radio" name="q8" value="3"><span>3</span></label>
+              <label><input type="radio" name="q8" value="4"><span>4</span></label>
+              <label><input type="radio" name="q8" value="5"><span>5</span></label>
             </div>
           </div>
         </fieldset>
-        <!-- 9 -->
+
+        <!-- Question 9 -->
         <fieldset>
-          <legend>9) I ask “why” to get to the root of things.</legend>
+          <legend>9) I ask "why" to get to the root of things.</legend>
           <div class="q">
             <div class="hint">1 = Strongly disagree, 5 = Strongly agree</div>
             <div class="scale" role="radiogroup" aria-label="Question 9 scale">
-              <label><input type="radio" name="q9" value="1" required>1</label>
-              <label><input type="radio" name="q9" value="2">2</label>
-              <label><input type="radio" name="q9" value="3">3</label>
-              <label><input type="radio" name="q9" value="4">4</label>
-              <label><input type="radio" name="q9" value="5">5</label>
+              <label><input type="radio" name="q9" value="1" required><span>1</span></label>
+              <label><input type="radio" name="q9" value="2"><span>2</span></label>
+              <label><input type="radio" name="q9" value="3"><span>3</span></label>
+              <label><input type="radio" name="q9" value="4"><span>4</span></label>
+              <label><input type="radio" name="q9" value="5"><span>5</span></label>
             </div>
           </div>
         </fieldset>
-        <!-- 10 -->
+
+        <!-- Question 10 -->
         <fieldset>
           <legend>10) I seek feedback to improve my understanding.</legend>
           <div class="q">
             <div class="hint">1 = Strongly disagree, 5 = Strongly agree</div>
             <div class="scale" role="radiogroup" aria-label="Question 10 scale">
-              <label><input type="radio" name="q10" value="1" required>1</label>
-              <label><input type="radio" name="q10" value="2">2</label>
-              <label><input type="radio" name="q10" value="3">3</label>
-              <label><input type="radio" name="q10" value="4">4</label>
-              <label><input type="radio" name="q10" value="5">5</label>
+              <label><input type="radio" name="q10" value="1" required><span>1</span></label>
+              <label><input type="radio" name="q10" value="2"><span>2</span></label>
+              <label><input type="radio" name="q10" value="3"><span>3</span></label>
+              <label><input type="radio" name="q10" value="4"><span>4</span></label>
+              <label><input type="radio" name="q10" value="5"><span>5</span></label>
             </div>
           </div>
         </fieldset>
@@ -193,13 +590,13 @@
 
       <div id="result" class="result" aria-live="polite">
         <div class="score">Your total: <span id="total">0</span> / 50</div>
-        <span class="badge">Categories</span>
+        <span class="badge">Your profile</span>
         <div id="category" class="cat">—</div>
       </div>
     </div>
 
     <footer>
-      No data is stored. Results are calculated in your browser only.
+      🔒 No data is stored. Results are calculated in your browser only. This assessment is completely private.
     </footer>
   </div>
 
@@ -209,16 +606,17 @@
     const totalEl = document.getElementById('total');
     const catEl = document.getElementById('category');
 
-    function categorize(score){
-      if (score >= 40) return { text: "Curiosity Champion – keep inspiring others!", cls: "ok" };
-      if (score >= 25) return { text: "Curious Explorer – great start, keep stretching!", cls: "" };
-      return { text: "Hidden potential - time to unlock your curiosity!", cls: "warn" };
+    function categorize(score) {
+      if (score >= 40) return { text: "🚀 Curiosity Champion – You inspire others with your thirst for knowledge!", cls: "ok" };
+      if (score >= 30) return { text: "🌱 Curious Explorer – Great start! Keep exploring and stretching your boundaries.", cls: "" };
+      if (score >= 15) return { text: "💡 Emerging Learner – Hidden potential is waiting to be unlocked.", cls: "" };
+      return { text: "🔓 Time to Unlock – Your curiosity journey is just beginning!", cls: "warn" };
     }
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       // Ensure all 10 answered
-      const names = Array.from({length:10}, (_,i)=>`q${i+1}`);
+      const names = Array.from({ length: 10 }, (_, i) => `q${i + 1}`);
       for (const n of names) {
         if (!form.querySelector(`input[name="${n}"]:checked`)) {
           alert("Please answer all 10 questions.");
@@ -232,13 +630,13 @@
       const c = categorize(sum);
       catEl.textContent = c.text;
       catEl.className = `cat ${c.cls}`;
-      result.style.display = 'block';
-      result.scrollIntoView({ behavior:'smooth', block:'start' });
+      result.classList.add('show');
+      result.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
     form.addEventListener('reset', () => {
       setTimeout(() => {
-        result.style.display = 'none';
+        result.classList.remove('show');
         totalEl.textContent = '0';
         catEl.textContent = '—';
         catEl.className = 'cat';
