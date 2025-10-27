@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Curiosity Assessment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --primary:#1f6feb; --text:#0b1020; --muted:#5b6470; --bg:#f6f8fa; --card:#ffffff; --border:#d0d7de; --ok:#1a7f37; --warn:#9a6700;
+    }
+    body { margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif; color:var(--text); background:var(--bg); }
+    .wrap { max-width:900px; margin:32px auto; padding:0 16px; }
+    .card { background:var(--card); border:1px solid var(--border); border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,.04); }
+    header { padding:24px 24px 0; }
+    header h1 { margin:0 0 8px; font-size:28px; }
+    header p { margin:0 0 16px; color:var(--muted); }
+    form { padding:16px 24px 24px; }
+    fieldset { border:1px solid var(--border); border-radius:10px; padding:16px; margin:16px 0; }
+    legend { padding:0 6px; font-weight:600; }
+    .q { display:flex; flex-direction:column; gap:10px; }
+    .scale { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .scale label { display:flex; align-items:center; gap:6px; padding:6px 10px; border:1px solid var(--border); border-radius:8px; cursor:pointer; }
+    .scale input { accent-color:var(--primary); }
+    .hint { color:var(--muted); font-size:12px; }
+    .actions { display:flex; gap:12px; margin-top:20px; }
+    button { cursor:pointer; border:1px solid var(--primary); background:var(--primary); color:#fff; padding:10px 14px; border-radius:10px; font-weight:600; }
+    button.secondary { background:#fff; color:var(--primary); }
+    .result { display:none; padding:20px 24px; border-top:1px solid var(--border); background:#fafcff; border-radius:0 0 12px 12px; }
+    .score { font-size:22px; font-weight:700; }
+    .badge { display:inline-block; margin-top:6px; padding:6px 10px; border-radius:999px; border:1px solid var(--border); background:#fff; font-size:12px; color:var(--muted); }
+    .cat { margin-top:8px; font-size:18px; }
+    .cat.ok { color:var(--ok); }
+    .cat.warn { color:var(--warn); }
+    footer { margin-top:16px; color:var(--muted); font-size:12px; text-align:center; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <header>
+        <h1>Curiosity Assessment</h1>
+        <p>Rate each statement from 1 to 5. You’ll instantly see your total score and category.</p>
+      </header>
+
+      <form id="quiz" novalidate>
+        <!-- Edit the question text inside each legend as you wish -->
+        <!-- 1 -->
+        <fieldset>
+          <legend>1) I actively seek out new ideas and perspectives.</legend>
+          <div class="q">
+            <div class="hint">1 = Strongly disagree, 5 = Strongly agree</div>
+            <div class="scale" role="radiogroup" aria-label="Question 1 scale">
+              <label><input type="radio" name="q1" value="1" required>1</label>
+              <label><input type="radio" name="q1" value="2">2</label>
+              <label><input type="radio" name="q1" value="3">3</label>
+              <label><input type="radio" name="q1" value="4">4</label>
+              <label><input type="radio" name="q1" value="5">5</label>
+            </div>
+          </div>
+        </fieldset>
+        <!-- 2 -->
+        <fieldset>
+          <legend>2) I enjoy exploring unfamiliar topics.</legend>
+          <div class="q">
+            <div class="hint">1 = Strongly disagree, 5 = Strongly agree</div>
+            <div class="scale" role="radiogroup" aria-label="Question 2 scale">
+              <label><input type="radio" name="q2" value="1" required>1</label>
+              <label><input type="radio" name="q2" value="2">2</label>
+              <label><input type="radio" name="q2" value="3">3</label>
+              <label><input type="radio" name="q2" value="4">4</label>
+              <label><input type="radio" name="q2" value="5">5</label>
+            </div>
+          </div>
+        </fieldset>
+        <!-- 3 -->
+        <fieldset>
+          <legend>3) I ask questions to understand how things work.</legend>
+          <div class="q">
+            <div class="hint">1 = Strongly disagree, 5 = Strongly agree</div>
+            <div class="scale" role="radiogroup" aria-label="Question 3 scale">
+              <label><input type="radio" name="q3" value="1" required>1</label>
+              <label><input type="radio" name="q3" value="2">2</label>
+              <label><input type="radio" name="q3" value="3">3</label>
+              <label><input type="radio" name="q3" value="4">4</label>
+              <label><input type="radio" name="q3" value="5">5</label>
+            </div>
+          </div>
+        </fieldset>
+        <!-- 4 -->
+        <fieldset>
+          <legend>4) I’m comfortable stepping outside my routines.</legend>
+          <div class="q">
+            <div class="hint">1 = Strongly disagree, 5 = Strongly agree</div>
+            <div class="scale" role="radiogroup" aria-label="Question 4 scale">
+              <label><input type="radio" name="q4" value="1" required>1</label>
+              <label><input type="radio" name="q4" value="2">2</label>
+              <label><input type="radio" name="q4" value="3">3</label>
+              <label><input type="radio" name="q4" value="4">4</label>
+              <label><input type="radio" name="q4" value="5">5</label>
+            </div>
+          </div>
+        </fieldset>
+        <!-- 5 -->
+        <fieldset>
+          <legend>5) I look for learning in everyday situations.</legend>
+          <div class="q">
+            <div class="hint">1 = Strongly disagree, 5 = Strongly agree</div>
+            <div class="scale" role="radiogroup" aria-label="Question 5 scale">
+              <label><input type="radio" name="q5" value="1" required>1</label>
+              <label><input type="radio" name="q5" value="2">2</label>
+              <label><input type="radio" name="q5" value="3">3</label>
+              <label><input type="radio" name="q5" value="4">4</label>
+              <label><input type="radio" name="q5" value="5">5</label>
+            </div>
+          </div>
+        </fieldset>
+        <!-- 6 -->
+        <fieldset>
+          <legend>6) I enjoy experimenting to discover what happens.</legend>
+          <div class="q">
+            <div class="hint">1 = Strongly disagree, 5 = Strongly agree</div>
+            <div class="scale" role="radiogroup" aria-label="Question 6 scale">
+              <label><input type="radio" name="q6" value="1" required>1</label>
+              <label><input type="radio" name="q6" value="2">2</label>
+              <label><input type="radio" name="q6" value="3">3</label>
+              <label><input type="radio" name="q6" value="4">4</label>
+              <label><input type="radio" name="q6" value="5">5</label>
+            </div>
+          </div>
+        </fieldset>
+        <!-- 7 -->
+        <fieldset>
+          <legend>7) I’m open to changing my mind when I learn new facts.</legend>
+          <div class="q">
+            <div class="hint">1 = Strongly disagree, 5 = Strongly agree</div>
+            <div class="scale" role="radiogroup" aria-label="Question 7 scale">
+              <label><input type="radio" name="q7" value="1" required>1</label>
+              <label><input type="radio" name="q7" value="2">2</label>
+              <label><input type="radio" name="q7" value="3">3</label>
+              <label><input type="radio" name="q7" value="4">4</label>
+              <label><input type="radio" name="q7" value="5">5</label>
+            </div>
+          </div>
+        </fieldset>
+        <!-- 8 -->
+        <fieldset>
+          <legend>8) I read or watch content beyond my usual interests.</legend>
+          <div class="q">
+            <div class="hint">1 = Strongly disagree, 5 = Strongly agree</div>
+            <div class="scale" role="radiogroup" aria-label="Question 8 scale">
+              <label><input type="radio" name="q8" value="1" required>1</label>
+              <label><input type="radio" name="q8" value="2">2</label>
+              <label><input type="radio" name="q8" value="3">3</label>
+              <label><input type="radio" name="q8" value="4">4</label>
+              <label><input type="radio" name="q8" value="5">5</label>
+            </div>
+          </div>
+        </fieldset>
+        <!-- 9 -->
+        <fieldset>
+          <legend>9) I ask “why” to get to the root of things.</legend>
+          <div class="q">
+            <div class="hint">1 = Strongly disagree, 5 = Strongly agree</div>
+            <div class="scale" role="radiogroup" aria-label="Question 9 scale">
+              <label><input type="radio" name="q9" value="1" required>1</label>
+              <label><input type="radio" name="q9" value="2">2</label>
+              <label><input type="radio" name="q9" value="3">3</label>
+              <label><input type="radio" name="q9" value="4">4</label>
+              <label><input type="radio" name="q9" value="5">5</label>
+            </div>
+          </div>
+        </fieldset>
+        <!-- 10 -->
+        <fieldset>
+          <legend>10) I seek feedback to improve my understanding.</legend>
+          <div class="q">
+            <div class="hint">1 = Strongly disagree, 5 = Strongly agree</div>
+            <div class="scale" role="radiogroup" aria-label="Question 10 scale">
+              <label><input type="radio" name="q10" value="1" required>1</label>
+              <label><input type="radio" name="q10" value="2">2</label>
+              <label><input type="radio" name="q10" value="3">3</label>
+              <label><input type="radio" name="q10" value="4">4</label>
+              <label><input type="radio" name="q10" value="5">5</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="actions">
+          <button type="submit">See my result</button>
+          <button type="reset" class="secondary">Reset</button>
+        </div>
+      </form>
+
+      <div id="result" class="result" aria-live="polite">
+        <div class="score">Your total: <span id="total">0</span> / 50</div>
+        <span class="badge">Categories</span>
+        <div id="category" class="cat">—</div>
+      </div>
+    </div>
+
+    <footer>
+      No data is stored. Results are calculated in your browser only.
+    </footer>
+  </div>
+
+  <script>
+    const form = document.getElementById('quiz');
+    const result = document.getElementById('result');
+    const totalEl = document.getElementById('total');
+    const catEl = document.getElementById('category');
+
+    function categorize(score){
+      if (score >= 40) return { text: "Curiosity Champion – keep inspiring others!", cls: "ok" };
+      if (score >= 25) return { text: "Curious Explorer – great start, keep stretching!", cls: "" };
+      return { text: "Hidden potential - time to unlock your curiosity!", cls: "warn" };
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // Ensure all 10 answered
+      const names = Array.from({length:10}, (_,i)=>`q${i+1}`);
+      for (const n of names) {
+        if (!form.querySelector(`input[name="${n}"]:checked`)) {
+          alert("Please answer all 10 questions.");
+          return;
+        }
+      }
+      // Sum
+      let sum = 0;
+      names.forEach(n => sum += parseInt(form.querySelector(`input[name="${n}"]:checked`).value, 10));
+      totalEl.textContent = sum.toString();
+      const c = categorize(sum);
+      catEl.textContent = c.text;
+      catEl.className = `cat ${c.cls}`;
+      result.style.display = 'block';
+      result.scrollIntoView({ behavior:'smooth', block:'start' });
+    });
+
+    form.addEventListener('reset', () => {
+      setTimeout(() => {
+        result.style.display = 'none';
+        totalEl.textContent = '0';
+        catEl.textContent = '—';
+        catEl.className = 'cat';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 0);
+    });
+  </script>
+</body>
+</html>
